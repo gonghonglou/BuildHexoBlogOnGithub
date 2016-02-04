@@ -1,0 +1,2 @@
+# BuildHexoBlogOnGithub
+这是一篇详细文章来讲述用Mac搭建Hexo博客于Github上的完整历程
