@@ -21,11 +21,7 @@
 	[1.3.将ssh key添加到Github中](#3.1.3)    
 	[2.创建仓库](#3.2)    
 	[3.发布文章](#3.3)    
-* [安装theme](#4)    
-	[1.安装选定主题](#4.1)    
-	[2.添加评论功能](#4.2)    
-	[3.添加社交网络链接](#4.3)    
-	[4.修改博客底部信息](#4.4)    
+* [安装theme](#4)       
 * [绑定个人域名](#5)    
 	[1.Github端](#5.1)    
 	[2.域名解析](#5.2)    
@@ -172,53 +168,23 @@ npm install hexo --save
 
 <h2 id="4">安装theme</h2>
 
-你可以到[Hexo官网主题页](https://hexo.io/themes/)去搜寻自己喜欢的theme。这里以[hexo-theme-vno](https://github.com/lenbo-ma/hexo-theme-vno)为例，这款主题修改自[喵大](http://onevcat.com/)的[vno](https://github.com/onevcat/vno)(基于Ghost的)。讲真：当初便是冲着喵大博客的主题来的，只是后来一番曲折踏进了Hexo的圈子。[hexo-theme-vno](https://github.com/lenbo-ma/hexo-theme-vno)的README.md文件中已有详细的安装介绍，这里啰嗦一些自己的修改：
-
-<h3 id="4.1">1.安装选定主题</h3>
+你可以到[Hexo官网主题页](https://hexo.io/themes/)去搜寻自己喜欢的theme。这里以[hexo-theme-next](https://github.com/iissnan/hexo-theme-next)为例
 
 终端cd到 `blog` 目录下执行如下命令：
 
-	$ git clone https://github.com/lenbo-ma/hexo-theme-vno.git themes/vno
+	$ git clone https://github.com/iissnan/hexo-theme-next themes/next
 
-打开`blog/themes/vno`目录，将文件夹名`vno`修改为`landscape`（或者你也可以去`_config.yml`里修改`theme`的名称）
+将`blog`目录下`_config.yml`里`theme`的名称`landscape`修改为`next`
 
 终端cd到`blog`目录下执行如下命令(每次部署文章的步骤)：
 	
-	$ hexo clean		//清除缓存文件 (db.json) 和已生成的静态文件 (public)
+	$ hexo clean		   //清除缓存文件 (db.json) 和已生成的静态文件 (public)
+
 <pre>$ hexo g			 //生成缓存和静态文件</pre>
+
 <pre>$ hexo d			 //重新部署到服务器</pre>
 
-至于更改theme内容，比如名称，描述，头像等去修改`blog/_config.yml`文件和`blog/themes/landscape/_config.yml`文件中对应的属性名称即可， 不要忘记冒号`:`后加空格。自己的图片放在`blog/themes/landscape/source/images`目录下。
-
-<h3 id="4.2">2.添加评论功能</h3>
-
-比较流行的第三方评论系统当然是[Disqus](https://disqus.com/)，不过因为你懂得。。。国内用的较多的是多说，有一个诡异的现象是电脑翻到外边后是看不到文章评论的，然而手机却可以，你们试试是否也是如此。
-
-登录[多说官网](http://duoshuo.com)，用QQ 微博什么的可直接登录，按步骤在后台管理处设置好。将多说域名如：`gonghonglou.duoshuo.com`中`.duoshuo.com`前面的名字，如图：
-![多说域名](http://7xn9bi.com1.z0.glb.clouddn.com/firstblog%2Fduoshuo.png)
-`gonghonglou`填加到`/blog/themes/vno/_config.yml`文件中的`duoshuo_shortname: `后边，如下边图“多说域名”位置，即可开启评论功能。如果不能则修改`/blog/themes/landscape/layout/_partial/comments.ejs`文件为下图所示（即删除判断Disqus部分）
-
-![/themes/landscape/layout/_partial/comments.ejs](http://7xn9bi.com1.z0.glb.clouddn.com/firstblog%2Fcomments.ejs.png)
-
-<h3 id="4.3">3.添加社交网络链接</h3>
-
-在`/blog/themes/landscape/_config.yml`文件中添加帐号链接，如图
-
-![blog/themes/landscape/_config.yml](http://7xn9bi.com1.z0.glb.clouddn.com/firstblog%2Flandscape%3Aconfig.yml.png)
-
-如果你想添加某个此theme中没有的网站（如instagram）链接，你可以到[Font Awesome网站](http://fontawesome.io/icons)寻找你想要的图标，在`/blog/themes/landscape/layout/_partial/social.ejs`文件中添加，如图：
-
-![/social.ejs](http://7xn9bi.com1.z0.glb.clouddn.com/firstblog%2F%3Asocial.ejs.png) 
-
-<h3 id="4.4">4.修改博客底部信息</h3>
-
-博客底部信息如图：
-
-![博客底部信息](http://7xn9bi.com1.z0.glb.clouddn.com/firstblog%2Ffooter.png)
-
-更改内容，可修改`/blog/themes/landscape/layout/_partial/footer.ejs`文件，如图：
-
-![/footer.ejs](http://7xn9bi.com1.z0.glb.clouddn.com/firstblog%2Ffooter.ejs.png)
+至于更改theme内容，比如名称，描述，头像等去修改`blog/_config.yml`文件和`blog/themes/next/_config.yml`文件中对应的属性名称即可， 不要忘记冒号`:`后加空格。  [ NexT 使用文档](http://theme-next.iissnan.com/)里有极详细的介绍。
 
 <h2 id="5">绑定个人域名</h2>
 
