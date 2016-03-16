@@ -221,7 +221,7 @@ npm install hexo --save
 
 以上便是我搭建[与佳期的个人博客(gonghonglou.com)](http://gonghonglou.com)的全过程，希望对大家有所帮助，欢迎吐槽～
 
-转载请保留原文地址：[http://gonghonglou.com/2016/02/03/firstblog客](http://gonghonglou.com/2016/02/03/firstblog)
+转载请保留原文地址：[http://gonghonglou.com/2016/02/03/firstblog](http://gonghonglou.com/2016/02/03/firstblog)
 
 <h2 id="7">参考链接</h2>
 
