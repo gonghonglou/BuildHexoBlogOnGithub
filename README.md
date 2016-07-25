@@ -2,33 +2,9 @@
 
 ---
 
-[文章首发于:与佳期的个人博客(gonghonglou.com)](http://gonghonglou.com/2016/02/03/firstblog/)
-
 这是一篇详细文章来讲述用Mac搭建Hexo博客于Github上的完整历程， 也是踩了无数的坑搭起来的，现在写下些经验来分享，希望能帮大家少踩些坑。
 
 曾买过一款阿里的云虚拟主机，后来才发现不能自己装软件只能上传网站程序，除非另买[ECS](https://www.aliyun.com/easybuy)，对于第一个月的实习工资还没拿到手的我想想还是算了，先用Wordpress搭起来玩玩吧。然而在上传网站程序中几次失败，本就觉得没劲，遂一怒转向Github。好了，废话少说，开始吧。
-
-
-* [环境配置](#1)    
-   [1.Node.js](#1.1)    
-   [2.Git](#1.2)    
-* [安装Hexo](#2)    
-	[初始化](#2.1)    
-* [关联Github](#3)    
-	[1.添加ssh key到Github](#3.1)    
-	[1.1.检查SSH keys是否存在](#3.1.1)    
-	[1.2.生成新的ssh key](#3.1.2)    
-	[1.3.将ssh key添加到Github中](#3.1.3)    
-	[2.创建仓库](#3.2)    
-	[3.发布文章](#3.3)    
-* [安装theme](#4)       
-* [绑定个人域名](#5)    
-	[1.Github端](#5.1)    
-	[2.域名解析](#5.2)    
-* [后记](#6)    
-* [参考链接](#7)    
-
-
 
 <h2 id="1">环境配置</h2>
 
@@ -73,31 +49,7 @@
 
 <h2 id="3">关联Github</h2>
 
-<h3 id="3.1">1.添加ssh key到Github</h3>
-
-<h4 id="3.1.1">1.1.检查SSH keys是否存在Github</h4>
-
-执行如下命令，检查SSH keys是否存在。如果有文件`id_rsa.pub`或`id_dsa.pub`，则直接进入步骤1.3将SSH key添加到Github中，否则进入下一步生成SSH key。
-
-	$ ls -al ~/.ssh
-	
-<h4 id="3.1.2">1.2.生成新的ssh key</h4>
-
-执行如下命令生成public/private rsa key pair，注意将`your_email@example.com`换成你自己注册Github的邮箱地址。
-
-	$ ssh-keygen -t rsa -C "your_email@example.com"
-
-默认会在相应路径下（`~/.ssh/id_rsa.pub`）生成`id_rsa`和`id_rsa.pub`两个文件。
-
-<h4 id="3.1.3">1.3.将ssh key添加到Github中</h4>
-
-Find前往文件夹`~/.ssh/id_rsa.pub`打开id_rsa.pub文件，里面的信息即为SSH key，将这些信息复制到Github的Add SSH key页面即可。
-
-进入Github --> Settings --> SSH keys --> add SSH key:
-
-Title里任意添一个标题，将复制的内容粘贴到Key里，点击下方`Add key`绿色按钮即可。
-
-<h3 id="3.2">2.创建仓库</h3>
+<h3 id="3.1">1.创建仓库</h3>
 
 登录你的Github帐号，新建仓库，名为`用户名.github.io`固定写法，如`gonghonglou.github.io`即下图中`1`所示：
 
@@ -113,14 +65,14 @@ Title里任意添一个标题，将复制的内容粘贴到Key里，点击下方
 	source
 	themes
 终端cd到`blog`文件夹下，`vim`打开`_config.yml`，命令如下：
-	
+		
 	$ vim _config.yml
 打开后往下滑到最后，修改成下边的样子：
 
 	deploy:
   	  type: git
   	  repository: https://github.com/gonghonglou/gonghonglou.github.io.git
- 	  branch: master
+ 	   branch: master 	  
 
 你需要将`repository`后`gonghonglou`换成你自己的用户名，地址在上图`2`位置获取。hexo 3.1.1版本后`type: `值为`git`。
 
@@ -141,13 +93,44 @@ npm install hexo --save
 再执行配置命令：
 
 	$ hexo deploy			或者：hexo d
-> 注意坑三：若执行命令`hexo deploy`仍然报错：无法连接git，则执行如下命令来安装[hexo-deployer-git](https://github.com/hexojs/hexo-deployer-git)：
+> 注意坑三：若执行命令`hexo deploy`仍然报错：无法连接git或找不到git，则执行如下命令来安装[hexo-deployer-git](https://github.com/hexojs/hexo-deployer-git)：
  
->		$ npm install hexo-developer-git --save
+>		$ npm install hexo-deployer-git --save		
+	
+再次执行`hexo generate`和`hexo deploy`命令。
 
-再次执行`hexo generate`和`hexo deploy`命令
+若你未关联Github，则执行`hexo deploy`命令时终端会提示你输入Github的用户名和密码，即
 
-此时，浏览器中打开网址[http://gonghonglou.github.io](http://gonghonglou.github.io)（将`gonghonglou`换成你的用户名）能看到和打开`http://localhost:4000`时一样的页面。
+	Username for 'https://github.com':
+	Password for 'https://github.com':
+
+`hexo deploy`命令执行成功后，浏览器中打开网址[http://gonghonglou.github.io](http://gonghonglou.github.io)（将`gonghonglou`换成你的用户名）能看到和打开`http://localhost:4000`时一样的页面。
+
+**为避免每次输入Github用户名和密码的麻烦，可参照第二节方法**
+
+<h3 id="3.2">2.添加ssh key到Github</h3>
+
+<h4 id="3.2.1">1.1.检查SSH keys是否存在Github</h4>
+
+执行如下命令，检查SSH keys是否存在。如果有文件`id_rsa.pub`或`id_dsa.pub`，则直接进入步骤1.3将SSH key添加到Github中，否则进入下一步生成SSH key。
+
+	$ ls -al ~/.ssh
+	
+<h4 id="3.2.2">1.2.生成新的ssh key</h4>
+
+执行如下命令生成public/private rsa key pair，注意将`your_email@example.com`换成你自己注册Github的邮箱地址。
+
+	$ ssh-keygen -t rsa -C "your_email@example.com"
+
+默认会在相应路径下（`~/.ssh/id_rsa.pub`）生成`id_rsa`和`id_rsa.pub`两个文件。
+
+<h4 id="3.2.2">1.3.将ssh key添加到Github中</h4>
+
+Find前往文件夹`~/.ssh/id_rsa.pub`打开id_rsa.pub文件，里面的信息即为SSH key，将这些信息复制到Github的Add SSH key页面即可。
+
+进入Github --> Settings --> SSH keys --> add SSH key:
+
+Title里任意添一个标题，将复制的内容粘贴到Key里，点击下方`Add key`绿色按钮即可。
 
 
 <h3 id="3.3">3.发布文章</h3>
@@ -155,7 +138,7 @@ npm install hexo --save
 终端cd到`blog`文件夹下，执行如下命令新建文章：
 
 	hexo new "postName"	
-名为`postName.md`的文件会建在目录`/blog/source/_posts`下。你当然可以用vim来编辑文章。我在用Mou编辑器，支持预览，虽然其预览主题并非我喜欢，如果你有好用的markdown编辑器请推荐给我，感激不尽！
+名为`postName.md`的文件会建在目录`/blog/source/_posts`下，`postName`是文件名，为方便链接不建议掺杂汉字。你当然可以用vim来编辑文章。我在用Mou编辑器，支持预览，虽然其预览主题并非我喜欢，如果你有好用的markdown编辑器请推荐给我，感激不尽！
 
 
 文章编辑完成后，终端cd到`blog`文件夹下，执行如下命令来发布：
@@ -163,8 +146,7 @@ npm install hexo --save
 	hexo generate 			//生成静态页面
 <pre>hexo deploy			//将文章部署到Github</pre>
 
----
-*至此，Mac上搭建基于Github的Hexo博客就完成了。下面的内容是介绍安装theme，添加评论功能和绑定个人域名，如果有兴趣且还有耐心的话，请继续吧。*
+**至此，Mac上搭建基于Github的Hexo博客就完成了。下面的内容是介绍安装theme和绑定个人域名，如果有兴趣且还有耐心的话，请继续吧。**
 
 <h2 id="4">安装theme</h2>
 
@@ -184,7 +166,7 @@ npm install hexo --save
 
 <pre>$ hexo d			 //重新部署到服务器</pre>
 
-至于更改theme内容，比如名称，描述，头像等去修改`blog/_config.yml`文件和`blog/themes/next/_config.yml`文件中对应的属性名称即可， 不要忘记冒号`:`后加空格。  [ NexT 使用文档](http://theme-next.iissnan.com/)里有极详细的介绍。
+至于更改theme内容比如名称、描述、头像等去修改`blog/_config.yml`文件和`blog/themes/next/_config.yml`文件中对应的属性名称即可， 不要忘记冒号`:`后加空格。  [ NexT 使用文档](http://theme-next.iissnan.com/)里有极详细的介绍。
 
 <h2 id="5">绑定个人域名</h2>
 
@@ -192,12 +174,14 @@ npm install hexo --save
 
 <h3 id="5.1">1.Github端</h3>
 
-在`/blog/themes/landscape/source`目录下新建文件名为：`CNAME`文件，注意没有后缀名！直接将自己的域名如：`gonghonglou.com`写入。
+在`/blog/themes/next/source`目录下新建文件名为：`CNAME`文件，注意没有后缀名！直接将自己的域名如：`gonghonglou.com`写入。
 
 终端cd到`blog`目录下执行如下命令重新部署：
 	
 	$ hexo clean
+
 <pre>$ hexo g</pre>
+
 <pre>$ hexo d</pre>
 
 > 注意坑四：网上许多都是说在Github上直接新建`CNAME`文件，如果这样的话，在你下一次执行`hexo d`部署命令后`CNAME`文件就消失了，因为本地没有此文件嘛。
@@ -214,17 +198,19 @@ npm install hexo --save
 
 ![域名解析](http://7xn9bi.com1.z0.glb.clouddn.com/firstblog%2Fyumingjiexi.png)
 
-此时，点击访问[http://gonghonglou.com](http://gonghonglou.com)和访问[http://gonghonglou.github.io](http://gonghonglou.github.io)效果一致，大功告成！
+此时，点击访问[http://gonghonglou.com](http://gonghonglou.com)和访问[http://gonghonglou.github.io](http://gonghonglou.github.io)效果一致。
+
+大功告成！
 
 
 <h2 id="6">后记</h2>
 
-以上便是我搭建[与佳期的个人博客(gonghonglou.com)](http://gonghonglou.com)的全过程，希望对大家有所帮助，欢迎吐槽～
+以上便是我搭建[与佳期个人博客(gonghonglou.com)](http://gonghonglou.com)的全过程，希望对大家有所帮助，欢迎吐槽～
 
 转载请保留原文地址：[http://gonghonglou.com/2016/02/03/firstblog](http://gonghonglou.com/2016/02/03/firstblog)
 
 <h2 id="7">参考链接</h2>
 
-* [Hexo官网](https://hexo.io/docs)
-* [HEXO](http://leopardpan.github.io/2015/08/12/hexo/)
-* [如何生成SSH key](http://www.jianshu.com/p/31cbbbc5f9fa/)
+ * [Hexo官网](https://hexo.io/docs)
+ * [HEXO](http://leopardpan.github.io/2015/08/12/hexo/)
+ * [如何生成SSH key](http://www.jianshu.com/p/31cbbbc5f9fa/)
