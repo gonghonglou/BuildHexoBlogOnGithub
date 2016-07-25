@@ -72,7 +72,7 @@
 	deploy:
   	  type: git
   	  repository: https://github.com/gonghonglou/gonghonglou.github.io.git
- 	   branch: master 	  
+ 	  branch: master 	  
 
 你需要将`repository`后`gonghonglou`换成你自己的用户名，地址在上图`2`位置获取。hexo 3.1.1版本后`type: `值为`git`。
 
