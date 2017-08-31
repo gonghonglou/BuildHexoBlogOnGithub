@@ -60,7 +60,7 @@ $ hexo s
 
 登录你的Github帐号，新建仓库，名为`用户名.github.io`固定写法，如`gonghonglou.github.io`即下图中`1`所示：
 
-![](http://localhost:4000](http://image.gonghonglou.com/firstblog/githubName.png)
+![http://localhost:4000](http://image.gonghonglou.com/firstblog/githubName.png)
 
 本地的`blog`文件夹下内容为：
 ```
